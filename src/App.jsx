@@ -13,7 +13,7 @@ export default function App() {
   return (
     <AppLayout page={page} onNavigate={navigate}>
       {page === 'home' && <HomePage onNavigate={navigate} assessmentResult={assessmentResult} />}
-      {page === 'assessment' && <AssessmentPage onComplete={(result) => { setAssessmentResult(result); setPage('curriculum') }} />}
+      {page === 'assessment' && <AssessmentPage onComplete={(result) => { setAssessmentResult(result); setPage('curriculum') }} onNavigate={navigate} />}
       {page === 'curriculum' && <CurriculumPage assessmentResult={assessmentResult} />}
       {page === 'practice' && <PracticePage />}
     </AppLayout>
