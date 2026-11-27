@@ -1,0 +1,6 @@
+export const curriculumWeeks = [
+  { week: '01', title: 'See the whole neck', subtitle: 'Connect positions into one map', focus: 'Fretboard interconnection', sessions: [{ day: 'MON', name: 'Octave landmarks', time: '15 min' }, { day: 'WED', name: 'Pentatonic pathways', time: '20 min' }, { day: 'FRI', name: 'One-string melody routes', time: '15 min' }] },
+  { week: '02', title: 'Follow the harmony', subtitle: 'Make chord changes audible', focus: 'Chord-tone awareness', sessions: [{ day: 'MON', name: 'Triad tones on 3 strings', time: '15 min' }, { day: 'WED', name: 'Guide-tone movement', time: '20 min' }, { day: 'FRI', name: 'Target-note solo study', time: '20 min' }] },
+  { week: '03', title: 'Color your sound', subtitle: 'Hear modes as musical moods', focus: 'Modal understanding', sessions: [{ day: 'MON', name: 'Dorian vs Aeolian', time: '15 min' }, { day: 'WED', name: 'Mixolydian over a vamp', time: '20 min' }, { day: 'FRI', name: 'Modal phrase building', time: '20 min' }] },
+  { week: '04', title: 'Hear it. Play it.', subtitle: 'Turn interval knowledge into instinct', focus: 'Ear & musical application', sessions: [{ day: 'MON', name: 'Sing before you play', time: '15 min' }, { day: 'WED', name: 'Tension and release', time: '20 min' }, { day: 'FRI', name: 'Record a 60-second solo', time: '25 min' }] },
+]
