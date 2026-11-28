@@ -62,7 +62,7 @@ export default function EarTrainingChallenge({ onComplete }) {
   const next = () => {
     if (round === rounds.length - 1) {
       setStage('finished')
-      onComplete?.({ type: 'ear-training', score, total: rounds.length, attempts: attempts + 1 })
+      onComplete?.({ type: 'ear-training', score, total: rounds.length, attempts })
       return
     }
     setRound((value) => value + 1)
