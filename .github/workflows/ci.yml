@@ -1,11 +1,15 @@
-name: Build
+name: Build (manual only)
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Manual run confirmation'
+        required: false
+        type: boolean
+        default: false
 jobs:
   build:
+    if: ${{ inputs.confirm == true }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
