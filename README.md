@@ -16,6 +16,7 @@ FretWise is a bilingual (Bahasa Indonesia and English) guitar-learning workspace
 - Five-round practical note assessment: identify the exact string/fret for a randomized note, then verify the played pitch through microphone or USB audio input. Results and attempts are shown for the current session.
 - Four-round chord-tone assessment: hear a synthesized Dm7–G7 progression, locate the 3rd or 7th of each chord at the exact string/fret/octave, and verify the played pitch through audio input.
 - Five-round ear-training exercise: listen to generated ascending interval pairs, identify the interval by ear, replay each example, and receive immediate feedback in Indonesian or English.
+- Local practice progress tracking: save completed note-location, chord-tone, and ear-training sessions, show recent history and average accuracy on the dashboard (up to 50 sessions).
 
 ## Teaching method
 Every lesson follows five connected stages:
