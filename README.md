@@ -43,6 +43,7 @@ src/
   components/
     assessment/  AssessmentQuiz.jsx
     fretboard/   Fretboard.jsx
+    practice/    NoteLocationChallenge.jsx
     layout/      AppLayout.jsx, Sidebar.jsx
   data/          quizData.js, curriculumData.js, lessonData.js
   i18n/          LanguageContext.jsx
@@ -56,7 +57,14 @@ src/
   main.jsx
 ```
 
-## Audio input prototype\n- Uses the browser MediaDevices API to request audio input and enumerate available input devices after permission is granted.\n- USB guitar processors and audio interfaces can be selected when the operating system exposes them as audio input devices. A USB port alone does not guarantee audio-interface support.\n- Input capture disables browser echo cancellation, noise suppression, and automatic gain control where the browser/device honors those constraints.\n- The current tuner and practical assessment are early monophonic prototypes. The practical assessment scores five note-location and pitch-verification rounds in the current session; results are not yet saved. Polyphonic chords, effects-heavy signals, latency calibration, and chord-tone assessment are not implemented yet.\n- Use HTTPS in deployment (localhost is also treated as a secure context by browsers).\n\n## Product principles
+## Audio input prototype
+- Uses the browser MediaDevices API to request audio input and enumerate available input devices after permission is granted.
+- USB guitar processors and audio interfaces can be selected when the operating system exposes them as audio input devices. A USB port alone does not guarantee audio-interface support.
+- Input capture disables browser echo cancellation, noise suppression, and automatic gain control where the browser/device honors those constraints.
+- The current tuner and practical assessment are early monophonic prototypes. The practical assessment scores five note-location and pitch-verification rounds in the current session; results are not yet saved. Polyphonic chords, effects-heavy signals, latency calibration, and chord-tone assessment are not implemented yet.
+- Use HTTPS in deployment (localhost is also treated as a secure context by browsers).
+
+## Product principles
 - Teach musical connections, not isolated shapes.
 - Assessment scoring is deterministic and local.
 - Language preference and assessment history are stored in browser localStorage.
