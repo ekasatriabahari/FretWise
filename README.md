@@ -11,6 +11,7 @@ FretWise is a bilingual (Bahasa Indonesia and English) guitar-learning workspace
 - Four-week curriculum with assessment-based priority focus.
 - Guided lesson prototype using the FretWise five-stage learning method: Understand, Visualize, Hear, Play, Create.
 - One complete sample lesson: making chord changes audible through chord-tone targeting.
+- Live guitar input monitor with microphone / USB audio-interface selection, signal level, detected note, frequency, and cents deviation.
 
 ## Teaching method
 Every lesson follows five connected stages:
@@ -26,7 +27,7 @@ The aim is musical understanding and application, not memorizing shapes or maxim
 - React + Vite
 - Tailwind CSS v4
 - lucide-react
-- Web Audio API foundation (pitch detection is not yet an active feature)
+- Web Audio API for live input capture and initial monophonic pitch estimation
 
 ## Getting started
 ```bash
@@ -53,7 +54,7 @@ src/
   main.jsx
 ```
 
-## Product principles
+## Audio input prototype\n- Uses the browser MediaDevices API to request audio input and enumerate available input devices after permission is granted.\n- USB guitar processors and audio interfaces can be selected when the operating system exposes them as audio input devices. A USB port alone does not guarantee audio-interface support.\n- Input capture disables browser echo cancellation, noise suppression, and automatic gain control where the browser/device honors those constraints.\n- The current tuner is an early monophonic pitch-estimation prototype; polyphonic chords, effects-heavy signals, latency calibration, and scored playing exercises are not implemented yet.\n- Use HTTPS in deployment (localhost is also treated as a secure context by browsers).\n\n## Product principles
 - Teach musical connections, not isolated shapes.
 - Assessment scoring is deterministic and local.
 - Language preference and assessment history are stored in browser localStorage.
@@ -66,4 +67,4 @@ src/
 3. Interactive theory and lesson practice engine.
 4. Personalized AI curriculum generation.
 5. Voice tutor with lesson-aware context.
-6. Guitar audio analysis and feedback.
+6. Improve guitar audio analysis, calibrate latency, and add scored playing feedback.
