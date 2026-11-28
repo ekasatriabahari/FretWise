@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { AudioLines, CircleHelp, Guitar, RotateCcw, Mic, RefreshCw, Square, Radio } from 'lucide-react'
+import { useCallback, useState } from 'react'
+import { AudioLines, CircleHelp, Guitar, RotateCcw, Mic, RefreshCw, Square, Radio, Volume2, Target, CheckCircle2, AlertCircle } from 'lucide-react'
 import Fretboard from '../components/fretboard/Fretboard'
 import { NOTES } from '../utils/guitarTheory'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -17,6 +17,30 @@ export default function PracticePage() {
   const [mode, setMode] = useState('Minor pentatonic')
   const [root, setRoot] = useState('A')
   const [selected, setSelected] = useState(null)
+  const targetFrequency = 293.665
+  const targetCents = frequency ? Math.round(1200 * Math.log2(frequency / targetFrequency)) : null
+  const challengeHeard = status === 'listening' && level > 5 && targetCents !== null
+  const challengePassed = challengeHeard && Math.abs(targetCents) <= 35
+  const playReference = useCallback(async () => {
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext
+      if (!AudioContextClass) return
+      const audioContext = new AudioContextClass()
+      await audioContext.resume()
+      const oscillator = audioContext.createOscillator()
+      const gain = audioContext.createGain()
+      oscillator.type = 'triangle'
+      oscillator.frequency.value = targetFrequency
+      gain.gain.setValueAtTime(0.0001, audioContext.currentTime)
+      gain.gain.exponentialRampToValueAtTime(0.16, audioContext.currentTime + 0.04)
+      gain.gain.setValueAtTime(0.16, audioContext.currentTime + 0.65)
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 1)
+      oscillator.connect(gain).connect(audioContext.destination)
+      oscillator.onended = () => audioContext.close()
+      oscillator.start()
+      oscillator.stop(audioContext.currentTime + 1.02)
+    } catch { /* Audio output may be unavailable or blocked by the browser. */ }
+  }, [])
   const { status, level, devices, selectedDevice, setSelectedDevice, frequency, note, refreshDevices, start, stop } = usePitchDetection()
   const rootIndex = NOTES.indexOf(root)
   const notes = modes[mode].map((interval) => NOTES[(rootIndex + interval) % 12])
@@ -71,6 +95,23 @@ export default function PracticePage() {
           </div>
           <div className="mt-3 h-1 w-full max-w-xs overflow-hidden rounded-full bg-white/[.06]"><div className="h-full rounded-full bg-blue-400 transition-all" style={{ width: `${level}%` }}/></div>
         </div>
+      </div>
+    </section>
+
+    <section className="panel rounded-2xl p-5 sm:p-6">
+      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-amber-300"><Target size={14}/>{t('noteChallenge')}</div>
+      <div className="mt-2 flex flex-wrap items-start justify-between gap-4">
+        <div><h2 className="text-lg font-semibold">{t('findAndPlayTarget')}</h2><p className="mt-1 text-xs leading-5 text-zinc-500">{t('targetChallengeCopy')}</p></div>
+        <div className="rounded-xl border border-amber-400/20 bg-amber-400/[.06] px-4 py-3 text-center"><div className="text-[10px] uppercase tracking-wider text-zinc-500">{t('targetNote')}</div><div className="mt-1 text-3xl font-semibold text-amber-300">D4</div><div className="text-[10px] text-zinc-500">{t('secondString')} · {t('thirdFret')}</div></div>
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <button onClick={playReference} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2.5 text-xs font-medium text-zinc-200 hover:border-amber-300/40"><Volume2 size={14}/>{t('playReference')}</button>
+        {status !== 'listening' && <button onClick={start} disabled={status === 'requesting'} className="flex items-center gap-2 rounded-lg bg-amber-400 px-3 py-2.5 text-xs font-semibold text-[#17130a] hover:bg-amber-300 disabled:opacity-50"><Mic size={13}/>{t('startChallenge')}</button>}
+        {status === 'listening' && <button onClick={stop} className="flex items-center gap-2 rounded-lg border border-white/10 px-3 py-2.5 text-xs text-zinc-300 hover:text-white"><Square size={12}/>{t('stopListening')}</button>}
+      </div>
+      <div className={`mt-4 flex items-center gap-3 rounded-xl border p-3 ${challengePassed ? 'border-emerald-400/25 bg-emerald-400/[.06]' : challengeHeard ? 'border-amber-400/20 bg-amber-400/[.04]' : 'border-white/[.07] bg-white/[.02]'}`}>
+        {challengePassed ? <CheckCircle2 className="shrink-0 text-emerald-300" size={19}/> : <AlertCircle className="shrink-0 text-zinc-500" size={19}/>}
+        <div className="min-w-0"><div className={`text-sm font-semibold ${challengePassed ? 'text-emerald-300' : 'text-zinc-200'}`}>{challengePassed ? t('targetCorrect') : challengeHeard ? targetCents > 0 ? t('targetTooSharp') : t('targetTooFlat') : t('waitingForTarget')}</div><div className="mt-0.5 text-[11px] text-zinc-500">{challengeHeard ? `${targetCents > 0 ? '+' : ''}${targetCents} ${t('centsFromTarget')}` : t('targetInstruction')}</div></div>
       </div>
     </section>
 
