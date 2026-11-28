@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { AudioLines, CircleHelp, Guitar, RotateCcw, Mic, RefreshCw, Square, Radio, Volume2, Target, CheckCircle2, AlertCircle } from 'lucide-react'
 import Fretboard from '../components/fretboard/Fretboard'
+import NoteLocationChallenge from '../components/practice/NoteLocationChallenge'
 import { NOTES } from '../utils/guitarTheory'
 import { useLanguage } from '../i18n/LanguageContext'
 import { usePitchDetection } from '../hooks/usePitchDetection'
@@ -17,6 +18,7 @@ export default function PracticePage() {
   const [mode, setMode] = useState('Minor pentatonic')
   const [root, setRoot] = useState('A')
   const [selected, setSelected] = useState(null)
+  const { status, level, devices, selectedDevice, setSelectedDevice, frequency, note, refreshDevices, start, stop } = usePitchDetection()
   const targetFrequency = 293.665
   const targetCents = frequency ? Math.round(1200 * Math.log2(frequency / targetFrequency)) : null
   const challengeHeard = status === 'listening' && level > 5 && targetCents !== null
@@ -41,7 +43,6 @@ export default function PracticePage() {
       oscillator.stop(audioContext.currentTime + 1.02)
     } catch { /* Audio output may be unavailable or blocked by the browser. */ }
   }, [])
-  const { status, level, devices, selectedDevice, setSelectedDevice, frequency, note, refreshDevices, start, stop } = usePitchDetection()
   const rootIndex = NOTES.indexOf(root)
   const notes = modes[mode].map((interval) => NOTES[(rootIndex + interval) % 12])
   const modeLabels = {
@@ -97,6 +98,8 @@ export default function PracticePage() {
         </div>
       </div>
     </section>
+
+    <NoteLocationChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop}/>
 
     <section className="panel rounded-2xl p-5 sm:p-6">
       <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-amber-300"><Target size={14}/>{t('noteChallenge')}</div>
