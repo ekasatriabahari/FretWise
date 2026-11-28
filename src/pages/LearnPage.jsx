@@ -76,7 +76,7 @@ export default function LearnPage({ onNavigate }) {
 
     <section className="panel overflow-hidden rounded-2xl">
       <div className="border-b border-white/[.06] bg-white/[.02] p-5 sm:p-7">
-        <div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.15em] text-amber-300"><BookOpen size={14}/>{t('sampleLesson')}</div><span className="rounded-full border border-white/[.08] px-3 py-1 text-[10px] text-zinc-500">{language === 'id' ? 'Menengah' : 'Intermediate'} · 20 min</span></div>
+        <div className="flex flex-wrap items-center justify-between gap-3"><div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.15em] text-amber-300"><BookOpen size={14}/>{t('sampleLesson')}</div><span className="rounded-full border border-white/[.08] px-3 py-1 text-[10px] text-zinc-500">{language === 'id' ? 'Menengah' : 'Intermediate'} · {language === 'id' ? '20 menit' : '20 min'}</span></div>
         <h2 className="mt-3 text-2xl font-semibold">{chordToneLesson.title[language]}</h2>
         <p className="mt-2 max-w-3xl text-sm leading-6 text-zinc-400">{t('lessonIntro')}</p>
         <div className="mt-4 flex items-start gap-3 rounded-xl border border-amber-400/15 bg-amber-400/[.04] p-4"><Target size={17} className="mt-0.5 shrink-0 text-amber-300"/><div><div className="text-[10px] font-semibold uppercase tracking-wider text-amber-300">{t('lessonGoal')}</div><p className="mt-1 text-sm text-zinc-300">{chordToneLesson.goal[language]}</p></div></div>
