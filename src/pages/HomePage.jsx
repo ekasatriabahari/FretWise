@@ -7,9 +7,12 @@ function Stat({ icon: Icon, label, value, detail }) {
   return <div className="panel rounded-2xl p-4 sm:p-5"><div className="flex items-center justify-between"><span className="text-xs text-zinc-500">{label}</span><Icon size={17} className="text-zinc-500"/></div><div className="mt-3 text-2xl font-semibold tracking-tight">{value}</div><div className="mt-1 text-[11px] text-zinc-600">{detail}</div></div>
 }
 
-export default function HomePage({ onNavigate, assessmentResult, assessmentHistory = [] }) {
+export default function HomePage({ onNavigate, assessmentResult, assessmentHistory = [], practiceHistory = [] }) {
   const { language, t } = useLanguage()
   const recentResults = assessmentHistory.slice(0, 3)
+  const recentPractice = practiceHistory.slice(0, 5)
+  const practiceCount = practiceHistory.length
+  const practiceAverage = practiceCount ? Math.round(practiceHistory.reduce((sum, item) => sum + (item.total ? item.score / item.total * 100 : 0), 0) / practiceCount) : 0
   const weakest = assessmentResult?.pillars ? getAssessmentInsights(assessmentResult.pillars, language).weakest : null
   return (
     <div className="space-y-8">
@@ -29,6 +32,19 @@ export default function HomePage({ onNavigate, assessmentResult, assessmentHisto
         <Stat icon={Target} label={t('currentFocus')} value={weakest?.label ?? (language === 'id' ? 'Nada chord' : 'Chord tones')} detail={assessmentResult ? t('basedAssessment') : t('makeChangesAudible')}/>
         <Stat icon={TrendingUp} label={t('skillLevel')} value={assessmentResult ? `${assessmentResult.percentage}%` : t('discover')} detail={assessmentResult ? t('latestScore') : t('takeFirst')}/>
       </section>
+      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        <Stat icon={Target} label={t('practiceSessions')} value={practiceCount} detail={t('savedPracticeSessions')}/>
+        <Stat icon={TrendingUp} label={t('practiceAccuracy')} value={practiceCount ? `${practiceAverage}%` : '—'} detail={t('averageRecentPractice')}/>
+        <Stat icon={History} label={t('lastPractice')} value={recentPractice[0] ? `${recentPractice[0].score}/${recentPractice[0].total}` : '—'} detail={recentPractice[0] ? t(recentPractice[0].type) : t('noPracticeYet')}/>
+      </section>
+      {recentPractice.length > 0 && <section className="panel rounded-2xl p-5 sm:p-6">
+        <div className="mb-4 flex items-center gap-2"><History size={16} className="text-zinc-500"/><div><h2 className="text-sm font-semibold">{t('practiceHistory')}</h2><p className="mt-0.5 text-xs text-zinc-600">{t('latestPracticeSessions')}</p></div></div>
+        <div className="divide-y divide-white/[.06]">{recentPractice.map((item, index) => <div key={item.completedAt ?? index} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+          <div className="w-14 text-xl font-semibold tabular-nums text-amber-300">{item.score}/{item.total}</div>
+          <div className="min-w-0 flex-1"><div className="text-sm text-zinc-200">{t(item.type)}</div><div className="mt-0.5 text-[11px] text-zinc-600">{item.completedAt ? new Date(item.completedAt).toLocaleDateString(language === 'id' ? 'id-ID' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric' }) : ''}</div></div>
+          <span className="text-[10px] text-zinc-600">{item.total ? Math.round(item.score / item.total * 100) : 0}%</span>
+        </div>)}</div>
+      </section>}
       <section className="grid gap-5 xl:grid-cols-[1.45fr_1fr]">
         <div className="panel min-w-0 rounded-2xl p-5 sm:p-6">
           <div className="mb-4 flex items-center justify-between"><div><p className="text-xs font-medium uppercase tracking-[.16em] text-zinc-500">{t('interactiveTool')}</p><h2 className="mt-1 text-lg font-semibold">{t('fretboardSnapshot')}</h2></div><button onClick={() => onNavigate('practice')} className="text-xs font-medium text-amber-300 hover:text-amber-200">{t('openLab')} <ArrowUpRight className="ml-1 inline" size={13}/></button></div>
