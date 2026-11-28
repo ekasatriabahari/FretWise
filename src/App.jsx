@@ -7,11 +7,11 @@ import PracticePage from './pages/PracticePage'
 import { readAssessmentHistory, saveAssessmentResult } from './utils/assessmentStorage'
 
 export default function App() {
+  const [page, setPage] = useState('home')
   const [assessmentHistory, setAssessmentHistory] = useState(() => readAssessmentHistory())
   const assessmentResult = assessmentHistory[0] ?? null
 
   const navigate = (next) => setPage(next)
-  const [page, setPage] = useState('home')
 
   const completeAssessment = (result) => {
     const savedResult = { ...result, completedAt: new Date().toISOString() }
