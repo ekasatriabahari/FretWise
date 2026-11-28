@@ -3,7 +3,7 @@ import { getFretboardNotes, STANDARD_TUNING } from '../../utils/guitarTheory'
 
 const STRING_COLORS = ['#d4a574', '#c6a16c', '#b8a36f', '#a9a9a9', '#9da5b4', '#b9c1cc']
 const MARKERS = [3, 5, 7, 9, 12, 15, 17, 19, 21, 24]
-export default function Fretboard({ frets = 24, tuning = STANDARD_TUNING, highlightedNotes = ['A', 'C', 'D', 'E', 'G'], rootNote = 'A', onNoteSelect }) {
+export default function Fretboard({ frets = 24, tuning = STANDARD_TUNING, highlightedNotes = ['A', 'C', 'D', 'E', 'G'], rootNote = 'A', onNoteSelect, ariaLabel = `Interactive guitar fretboard, ${frets} frets` }) {
   const [selected, setSelected] = useState(null)
   const rows = useMemo(() => getFretboardNotes(tuning, frets), [tuning, frets])
   const width = 1040, left = 48, right = 18, top = 30, bottom = 34
@@ -12,7 +12,7 @@ export default function Fretboard({ frets = 24, tuning = STANDARD_TUNING, highli
   const isHighlighted = (note) => highlightedNotes.includes(note)
   return (
     <div className="w-full overflow-x-auto rounded-xl bg-[#0b0d12] p-2">
-      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`Interactive guitar fretboard, ${frets} frets`} className="min-w-[760px] w-full">
+      <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={ariaLabel} className="min-w-[760px] w-full">
         <defs><linearGradient id="fretwise-wood" x1="0" x2="1"><stop offset="0" stopColor="#33261e"/><stop offset=".5" stopColor="#211b19"/><stop offset="1" stopColor="#30241d"/></linearGradient></defs>
         <rect x={left} y={top - 12} width={width - left - right} height={height - top - bottom + 24} rx="7" fill="url(#fretwise-wood)" stroke="#665044" strokeWidth="1"/>
         {Array.from({ length: frets + 1 }, (_, fret) => <g key={fret}>
