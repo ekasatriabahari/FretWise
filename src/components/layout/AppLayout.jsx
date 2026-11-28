@@ -29,8 +29,8 @@ export default function AppLayout({ page, onNavigate, children }) {
               <button onClick={() => setLanguage('id')} aria-pressed={language === 'id'} className={`rounded-md px-2 py-1.5 text-[10px] font-semibold transition ${language === 'id' ? 'bg-amber-400 text-[#17130a]' : 'text-zinc-500 hover:text-zinc-200'}`}>ID</button>
               <button onClick={() => setLanguage('en')} aria-pressed={language === 'en'} className={`rounded-md px-2 py-1.5 text-[10px] font-semibold transition ${language === 'en' ? 'bg-amber-400 text-[#17130a]' : 'text-zinc-500 hover:text-zinc-200'}`}>EN</button>
             </div>
-            <button className="hidden items-center gap-2 rounded-lg border border-white/[.08] bg-white/[.03] px-3 py-2 text-xs text-zinc-500 sm:flex"><Search size={14}/> Search <kbd className="ml-5 flex items-center gap-1 rounded bg-white/[.06] px-1.5 py-1"><Command size={10}/> K</kbd></button>
-            <button aria-label="Notifications" className="rounded-lg p-2 text-zinc-400 hover:bg-white/[.06] hover:text-white"><Bell size={18}/></button>
+            <button className="hidden items-center gap-2 rounded-lg border border-white/[.08] bg-white/[.03] px-3 py-2 text-xs text-zinc-500 sm:flex"><Search size={14}/> {t('search')} <kbd className="ml-5 flex items-center gap-1 rounded bg-white/[.06] px-1.5 py-1"><Command size={10}/> K</kbd></button>
+            <button aria-label={t('notifications')} className="rounded-lg p-2 text-zinc-400 hover:bg-white/[.06] hover:text-white"><Bell size={18}/></button>
           </div>
         </header>
         <main className="mx-auto max-w-[1500px] px-5 py-7 sm:px-8 sm:py-9">{children}</main>
