@@ -47,7 +47,7 @@ function playChordProgression() {
   }).catch(() => context.close())
 }
 
-export default function ChordToneChallenge({ frequency, level, status, onStartListening, onStopListening }) {
+export default function ChordToneChallenge({ frequency, level, status, onStartListening, onStopListening, onComplete }) {
   const { t, language } = useLanguage()
   const [round, setRound] = useState(0)
   const [stage, setStage] = useState('listen')
@@ -75,6 +75,7 @@ export default function ChordToneChallenge({ frequency, level, status, onStartLi
   const next = () => {
     if (round === TASKS.length - 1) {
       setStage('finished')
+      onComplete?.({ type: 'chord-tone', score, total: TASKS.length, attempts })
       onStopListening()
       return
     }
