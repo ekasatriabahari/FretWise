@@ -17,6 +17,7 @@ FretWise is a bilingual (Bahasa Indonesia and English) guitar-learning workspace
 - Four-round chord-tone assessment: hear a synthesized Dm7–G7 progression, locate the 3rd or 7th of each chord at the exact string/fret/octave, and verify the played pitch through audio input.
 - Five-round ear-training exercise: listen to generated ascending interval pairs, identify the interval by ear, replay each example, and receive immediate feedback in Indonesian or English.
 - Local practice progress tracking: save completed note-location, chord-tone, and ear-training sessions, show recent history and average accuracy on the dashboard (up to 50 sessions).
+- First deterministic adaptive-learning recommendations: analyze up to five recent sessions per exercise, identify the weakest practice area, and suggest a focused next activity. Requires at least two sessions before flagging an area as needing attention; three strong sessions are required for a consistently-strong label.
 
 ## Teaching method
 Every lesson follows five connected stages:
@@ -72,6 +73,7 @@ src/
 - Assessment scoring is deterministic and local.
 - Language preference and assessment history are stored in browser localStorage.
 - AI credentials must remain on a future server; never expose secret API keys in Vite client variables.
+- Adaptive recommendations are local heuristics, not AI-generated diagnoses. They use saved exercise scores and do not yet change exercise difficulty automatically.
 - Voice tutoring and instrument pitch analysis are separate future features.
 
 ## Roadmap
