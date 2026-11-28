@@ -1,10 +1,13 @@
-import { ArrowRight, ArrowUpRight, AudioLines, BookOpen, Clock3, Flame, Guitar, Play, Sparkles, Target, TrendingUp } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, AudioLines, BookOpen, Clock3, Flame, Guitar, Play, Sparkles, Target, TrendingUp, History } from 'lucide-react'
 import Fretboard from '../components/fretboard/Fretboard'
+import { getAssessmentInsights } from '../utils/assessmentInsights'
 
 function Stat({ icon: Icon, label, value, detail }) {
   return <div className="panel rounded-2xl p-4 sm:p-5"><div className="flex items-center justify-between"><span className="text-xs text-zinc-500">{label}</span><Icon size={17} className="text-zinc-500"/></div><div className="mt-3 text-2xl font-semibold tracking-tight">{value}</div><div className="mt-1 text-[11px] text-zinc-600">{detail}</div></div>
 }
-export default function HomePage({ onNavigate, assessmentResult }) {
+
+export default function HomePage({ onNavigate, assessmentResult, assessmentHistory = [] }) {
+  const recentResults = assessmentHistory.slice(0, 3)
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-3xl border border-white/[.07] bg-gradient-to-br from-[#242019] via-[#171922] to-[#11141c] p-6 sm:p-9">
@@ -20,7 +23,7 @@ export default function HomePage({ onNavigate, assessmentResult }) {
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Stat icon={Flame} label="Practice streak" value="3 days" detail="Small steps, real momentum"/>
         <Stat icon={Clock3} label="Time this week" value="1h 25m" detail="Of your 2 hour weekly goal"/>
-        <Stat icon={Target} label="Current focus" value="Chord tones" detail="Make the changes audible"/>
+        <Stat icon={Target} label="Current focus" value={assessmentResult?.pillars ? getAssessmentInsights(assessmentResult.pillars).weakest?.label ?? 'Chord tones' : 'Chord tones'} detail={assessmentResult ? 'Based on your latest assessment' : 'Make the changes audible'}/>
         <Stat icon={TrendingUp} label="Skill level" value={assessmentResult ? `${assessmentResult.percentage}%` : 'Discover it'} detail={assessmentResult ? 'Latest assessment score' : 'Take your first skill check'}/>
       </section>
       <section className="grid gap-5 xl:grid-cols-[1.45fr_1fr]">
@@ -41,6 +44,17 @@ export default function HomePage({ onNavigate, assessmentResult }) {
         <div className="flex items-start gap-4"><div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-blue-400/10 text-blue-300"><BookOpen size={20}/></div><div><h3 className="font-semibold">A learning path built around you</h3><p className="mt-1 text-sm text-zinc-500">A quick skill check helps identify what to work on next.</p></div></div>
         <button onClick={() => onNavigate('curriculum')} className="shrink-0 rounded-xl border border-white/10 px-4 py-2.5 text-sm text-zinc-300 hover:bg-white/[.04]">View curriculum <ArrowRight className="ml-2 inline" size={14}/></button>
       </section>
+      {recentResults.length > 0 && <section className="panel rounded-2xl p-5 sm:p-6">
+        <div className="mb-4 flex items-center gap-2"><History size={16} className="text-zinc-500"/><div><h2 className="text-sm font-semibold">Assessment history</h2><p className="mt-0.5 text-xs text-zinc-600">Your latest {recentResults.length} saved skill checks</p></div></div>
+        <div className="divide-y divide-white/[.06]">{recentResults.map((item, index) => {
+          const insights = getAssessmentInsights(item.pillars)
+          return <div key={item.completedAt ?? index} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+            <div className="w-14 text-xl font-semibold tabular-nums text-amber-300">{item.percentage}%</div>
+            <div className="min-w-0 flex-1"><div className="text-sm text-zinc-200">{insights.weakest?.label ?? 'Skill assessment'}</div><div className="mt-0.5 text-[11px] text-zinc-600">{item.completedAt ? new Date(item.completedAt).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : 'Saved assessment'}</div></div>
+            <span className="text-[10px] text-zinc-600">{item.correct}/{item.total} correct</span>
+          </div>
+        })}</div>
+      </section>}
     </div>
   )
 }
