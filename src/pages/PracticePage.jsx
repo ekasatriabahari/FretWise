@@ -3,6 +3,7 @@ import { AudioLines, CircleHelp, Guitar, RotateCcw, Mic, RefreshCw, Square, Radi
 import Fretboard from '../components/fretboard/Fretboard'
 import NoteLocationChallenge from '../components/practice/NoteLocationChallenge'
 import ChordToneChallenge from '../components/practice/ChordToneChallenge'
+import EarTrainingChallenge from '../components/practice/EarTrainingChallenge'
 import { NOTES } from '../utils/guitarTheory'
 import { useLanguage } from '../i18n/LanguageContext'
 import { usePitchDetection } from '../hooks/usePitchDetection'
@@ -103,6 +104,8 @@ export default function PracticePage() {
     <NoteLocationChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop}/>
 
     <ChordToneChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop}/>
+
+    <EarTrainingChallenge/>
 
     <section className="panel rounded-2xl p-5 sm:p-6">
       <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-amber-300"><Target size={14}/>{t('noteChallenge')}</div>
