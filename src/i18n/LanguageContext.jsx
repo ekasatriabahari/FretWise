@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 const LanguageContext = createContext(null)
 const STORAGE_KEY = 'fretwise.language.v1'
@@ -98,6 +98,11 @@ export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState(() => {
     try { const saved = window.localStorage.getItem(STORAGE_KEY); return saved === 'en' || saved === 'id' ? saved : 'id' } catch { return 'id' }
   })
+
+  useEffect(() => {
+    document.documentElement.lang = language
+    document.title = language === 'id' ? 'FretWise — Belajar Gitar Lebih Musikal' : 'FretWise — Play beyond the patterns.'
+  }, [language])
 
   const changeLanguage = (next) => {
     setLanguage(next)
