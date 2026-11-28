@@ -1,6 +1,7 @@
 import { ArrowRight, ArrowUpRight, AudioLines, BookOpen, Clock3, Flame, Guitar, Play, Sparkles, Target, TrendingUp, History, GraduationCap } from 'lucide-react'
 import Fretboard from '../components/fretboard/Fretboard'
 import { getAssessmentInsights } from '../utils/assessmentInsights'
+import { analyzeLearningProgress } from '../utils/adaptiveLearning'
 import { useLanguage } from '../i18n/LanguageContext'
 
 function Stat({ icon: Icon, label, value, detail }) {
@@ -14,6 +15,7 @@ export default function HomePage({ onNavigate, assessmentResult, assessmentHisto
   const practiceCount = practiceHistory.length
   const practiceAverage = practiceCount ? Math.round(practiceHistory.reduce((sum, item) => sum + (item.total ? item.score / item.total * 100 : 0), 0) / practiceCount) : 0
   const weakest = assessmentResult?.pillars ? getAssessmentInsights(assessmentResult.pillars, language).weakest : null
+  const adaptive = analyzeLearningProgress(practiceHistory, language)
   return (
     <div className="space-y-8">
       <section className="relative overflow-hidden rounded-3xl border border-white/[.07] bg-gradient-to-br from-[#242019] via-[#171922] to-[#11141c] p-6 sm:p-9">
@@ -37,6 +39,7 @@ export default function HomePage({ onNavigate, assessmentResult, assessmentHisto
         <Stat icon={TrendingUp} label={t('practiceAccuracy')} value={practiceCount ? `${practiceAverage}%` : '—'} detail={t('averageRecentPractice')}/>
         <Stat icon={History} label={t('lastPractice')} value={recentPractice[0] ? `${recentPractice[0].score}/${recentPractice[0].total}` : '—'} detail={recentPractice[0] ? t(recentPractice[0].type) : t('noPracticeYet')}/>
       </section>
+      <section className="panel rounded-2xl border border-amber-400/20 p-5 sm:p-6"><div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.15em] text-amber-300"><Sparkles size={14}/>{t('adaptiveTitle')}</div><div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between"><div className="max-w-2xl"><h2 className="text-lg font-semibold">{adaptive.title}</h2><p className="mt-2 text-sm leading-6 text-zinc-400">{adaptive.focus}</p>{adaptive.evidence && <p className="mt-2 text-xs text-zinc-500">{adaptive.evidence}</p>}<p className="mt-3 text-sm text-zinc-300">{adaptive.action}</p></div><div className="flex shrink-0 flex-col items-start gap-2"><span className="rounded-full bg-white/[.06] px-3 py-1 text-[10px] font-medium text-zinc-300">{adaptive.status ?? t('adaptiveWaiting')}</span><button onClick={() => onNavigate('practice')} className="rounded-lg bg-amber-400 px-4 py-2 text-xs font-semibold text-[#17130a] hover:bg-amber-300">{t('openRecommendedPractice')} <ArrowRight className="ml-1 inline" size={13}/></button></div></div></section>
       {recentPractice.length > 0 && <section className="panel rounded-2xl p-5 sm:p-6">
         <div className="mb-4 flex items-center gap-2"><History size={16} className="text-zinc-500"/><div><h2 className="text-sm font-semibold">{t('practiceHistory')}</h2><p className="mt-0.5 text-xs text-zinc-600">{t('latestPracticeSessions')}</p></div></div>
         <div className="divide-y divide-white/[.06]">{recentPractice.map((item, index) => <div key={item.completedAt ?? index} className="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
