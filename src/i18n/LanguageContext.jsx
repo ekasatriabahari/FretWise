@@ -52,6 +52,7 @@ const messages = {
     createTask: 'Create a musical phrase', createCopy: 'Make a two-bar phrase using F and B as landing notes. Add one or two nearby passing notes, vary the rhythm, and finish by resolving to C.',
     markComplete: 'Mark lesson complete', completed: 'Lesson completed', lessonProgress: 'Lesson progress', methodNote: 'FretWise does not reward speed over understanding. Move on when you can explain, hear, and use the idea in your own playing.',
     priorityBadge: 'Recommended next lesson', noAssessment: 'Take the skill assessment to personalize your next lessons.',
+    adaptiveTitle: 'ADAPTIVE PRACTICE GUIDE', adaptiveWaiting: 'Waiting for practice data', openRecommendedPractice: 'Open practice',
   },
   id: {
     language: 'Bahasa', english: 'English', indonesian: 'Bahasa Indonesia', search: 'Cari', notifications: 'Notifikasi', brandTagline: 'Bermain melampaui pola',
@@ -101,6 +102,7 @@ const messages = {
     createTask: 'Ciptakan frase musikal', createCopy: 'Buat frase dua bar dengan F dan B sebagai nada tujuan. Tambahkan satu atau dua nada penghubung, variasikan ritmenya, lalu akhiri dengan resolusi ke C.',
     markComplete: 'Tandai materi selesai', completed: 'Materi selesai', lessonProgress: 'Progres materi', methodNote: 'FretWise tidak mengutamakan kecepatan daripada pemahaman. Lanjutkan ketika kamu mampu menjelaskan, mendengar, dan menggunakan konsep tersebut saat bermain.',
     priorityBadge: 'Materi yang disarankan berikutnya', noAssessment: 'Ikuti evaluasi kemampuan agar materi berikutnya dapat disesuaikan dengan kebutuhanmu.',
+    adaptiveTitle: 'PANDUAN LATIHAN ADAPTIF', adaptiveWaiting: 'Menunggu data latihan', openRecommendedPractice: 'Buka latihan',
   },
 }
 
