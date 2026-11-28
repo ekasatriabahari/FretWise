@@ -15,7 +15,7 @@ export default function Sidebar({ page, onNavigate }) {
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-[248px] flex-col border-r border-white/[.06] bg-[#0d0f15] px-4 py-6 lg:flex">
       <button onClick={() => onNavigate('home')} className="mb-10 flex items-center gap-3 px-2 text-left">
         <div className="grid h-10 w-10 place-items-center rounded-xl bg-amber-400 text-[#17130a] shadow-lg shadow-amber-500/15"><AudioWaveform size={22}/></div>
-        <div><div className="text-lg font-bold tracking-tight">fretwise<span className="text-amber-400">.</span></div><div className="text-[10px] uppercase tracking-[.2em] text-zinc-600">Play beyond the patterns</div></div>
+        <div><div className="text-lg font-bold tracking-tight">fretwise<span className="text-amber-400">.</span></div><div className="text-[10px] uppercase tracking-[.2em] text-zinc-600">{t('brandTagline')}</div></div>
       </button>
       <div className="mb-3 px-3 text-[10px] font-semibold uppercase tracking-[.18em] text-zinc-600">{t('workspace')}</div>
       <nav className="space-y-1">
