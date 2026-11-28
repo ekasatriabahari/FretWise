@@ -96,7 +96,7 @@ const messages = {
 
 export function LanguageProvider({ children }) {
   const [language, setLanguage] = useState(() => {
-    try { return window.localStorage.getItem(STORAGE_KEY) === 'id' ? 'id' : 'en' } catch { return 'en' }
+    try { const saved = window.localStorage.getItem(STORAGE_KEY); return saved === 'en' || saved === 'id' ? saved : 'id' } catch { return 'id' }
   })
 
   const changeLanguage = (next) => {
