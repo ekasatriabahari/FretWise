@@ -7,11 +7,17 @@ import PracticePage from './pages/PracticePage'
 import LearnPage from './pages/LearnPage'
 import { LanguageProvider } from './i18n/LanguageContext'
 import { readAssessmentHistory, saveAssessmentResult } from './utils/assessmentStorage'
+import { readPracticeHistory, savePracticeResult } from './utils/practiceStorage'
 
 function FretWiseApp() {
   const [page, setPage] = useState('home')
   const [assessmentHistory, setAssessmentHistory] = useState(() => readAssessmentHistory())
+  const [practiceHistory, setPracticeHistory] = useState(() => readPracticeHistory())
   const assessmentResult = assessmentHistory[0] ?? null
+
+  const completePractice = (result) => {
+    setPracticeHistory(savePracticeResult(result))
+  }
 
   const completeAssessment = (result) => {
     const savedResult = { ...result, completedAt: new Date().toISOString() }
@@ -21,10 +27,10 @@ function FretWiseApp() {
 
   return (
     <AppLayout page={page} onNavigate={setPage}>
-      {page === 'home' && <HomePage onNavigate={setPage} assessmentResult={assessmentResult} assessmentHistory={assessmentHistory} />}
+      {page === 'home' && <HomePage onNavigate={setPage} assessmentResult={assessmentResult} assessmentHistory={assessmentHistory} practiceHistory={practiceHistory} />}
       {page === 'assessment' && <AssessmentPage onComplete={completeAssessment} onNavigate={setPage} />}
       {page === 'curriculum' && <CurriculumPage assessmentResult={assessmentResult} />}
-      {page === 'practice' && <PracticePage />}
+      {page === 'practice' && <PracticePage onPracticeComplete={completePractice} />}
       {page === 'learn' && <LearnPage onNavigate={setPage} />}
     </AppLayout>
   )
