@@ -40,18 +40,20 @@ function playInterval(semitones) {
   }).catch(() => context.close())
 }
 
-export default function EarTrainingChallenge() {
+export default function EarTrainingChallenge({ onComplete }) {
   const { t, language } = useLanguage()
   const [rounds, setRounds] = useState(makeRounds)
   const [round, setRound] = useState(0)
   const [stage, setStage] = useState('listen')
   const [score, setScore] = useState(0)
   const [selected, setSelected] = useState(null)
+  const [attempts, setAttempts] = useState(0)
   const task = rounds[round]
   const currentNumber = round + 1
 
   const answer = (interval) => {
     if (stage !== 'listen') return
+    setAttempts((value) => value + 1)
     setSelected(interval.id)
     if (interval.id === task.id) setScore((value) => value + 1)
     setStage('answered')
@@ -60,6 +62,7 @@ export default function EarTrainingChallenge() {
   const next = () => {
     if (round === rounds.length - 1) {
       setStage('finished')
+      onComplete?.({ type: 'ear-training', score, total: rounds.length, attempts: attempts + 1 })
       return
     }
     setRound((value) => value + 1)
@@ -72,6 +75,7 @@ export default function EarTrainingChallenge() {
     setRound(0)
     setScore(0)
     setSelected(null)
+    setAttempts(0)
     setStage('listen')
   }
 
