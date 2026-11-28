@@ -23,7 +23,7 @@ function makeTarget(previous) {
   return target
 }
 
-export default function NoteLocationChallenge({ frequency, level, status, onStartListening, onStopListening }) {
+export default function NoteLocationChallenge({ frequency, level, status, onStartListening, onStopListening, onComplete }) {
   const { language, t } = useLanguage()
   const [target, setTarget] = useState(() => makeTarget(null))
   const [stage, setStage] = useState('locate')
@@ -48,6 +48,7 @@ export default function NoteLocationChallenge({ frequency, level, status, onStar
   const nextRound = () => {
     if (round >= 5) {
       setStage('finished')
+      onComplete?.({ type: 'note-location', score, total: 5, attempts })
       return
     }
     setTarget((previous) => makeTarget(previous))
