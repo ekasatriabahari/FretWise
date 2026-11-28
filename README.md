@@ -12,6 +12,7 @@ FretWise is a bilingual (Bahasa Indonesia and English) guitar-learning workspace
 - Guided lesson prototype using the FretWise five-stage learning method: Understand, Visualize, Hear, Play, Create.
 - One complete sample lesson: making chord changes audible through chord-tone targeting.
 - Live guitar input monitor with microphone / USB audio-interface selection, signal level, detected note, frequency, and cents deviation.
+- First interactive note challenge: play a generated D4 reference tone, then play D4 on the 2nd string, 3rd fret; browser compares the incoming pitch against the target.
 
 ## Teaching method
 Every lesson follows five connected stages:
@@ -27,7 +28,7 @@ The aim is musical understanding and application, not memorizing shapes or maxim
 - React + Vite
 - Tailwind CSS v4
 - lucide-react
-- Web Audio API for live input capture and initial monophonic pitch estimation
+- Web Audio API for live input capture, initial monophonic pitch estimation, and generated reference tones
 
 ## Getting started
 ```bash
@@ -54,7 +55,7 @@ src/
   main.jsx
 ```
 
-## Audio input prototype\n- Uses the browser MediaDevices API to request audio input and enumerate available input devices after permission is granted.\n- USB guitar processors and audio interfaces can be selected when the operating system exposes them as audio input devices. A USB port alone does not guarantee audio-interface support.\n- Input capture disables browser echo cancellation, noise suppression, and automatic gain control where the browser/device honors those constraints.\n- The current tuner is an early monophonic pitch-estimation prototype; polyphonic chords, effects-heavy signals, latency calibration, and scored playing exercises are not implemented yet.\n- Use HTTPS in deployment (localhost is also treated as a secure context by browsers).\n\n## Product principles
+## Audio input prototype\n- Uses the browser MediaDevices API to request audio input and enumerate available input devices after permission is granted.\n- USB guitar processors and audio interfaces can be selected when the operating system exposes them as audio input devices. A USB port alone does not guarantee audio-interface support.\n- Input capture disables browser echo cancellation, noise suppression, and automatic gain control where the browser/device honors those constraints.\n- The current tuner and target-note challenge are early monophonic prototypes; polyphonic chords, effects-heavy signals, latency calibration, and a full scored assessment engine are not implemented yet.\n- Use HTTPS in deployment (localhost is also treated as a secure context by browsers).\n\n## Product principles
 - Teach musical connections, not isolated shapes.
 - Assessment scoring is deterministic and local.
 - Language preference and assessment history are stored in browser localStorage.
@@ -63,7 +64,7 @@ src/
 
 ## Roadmap
 1. Bilingual core learning experience and guided lesson foundation (current).
-2. Practical assessment: fretboard identification, chord-tone challenges, and ear training.
+2. Expand practical assessment: randomized fretboard identification, chord-tone challenges, and ear training.
 3. Interactive theory and lesson practice engine.
 4. Personalized AI curriculum generation.
 5. Voice tutor with lesson-aware context.
