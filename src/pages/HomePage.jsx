@@ -32,7 +32,7 @@ export default function HomePage({ onNavigate, assessmentResult, assessmentHisto
       <section className="grid gap-5 xl:grid-cols-[1.45fr_1fr]">
         <div className="panel min-w-0 rounded-2xl p-5 sm:p-6">
           <div className="mb-4 flex items-center justify-between"><div><p className="text-xs font-medium uppercase tracking-[.16em] text-zinc-500">{t('interactiveTool')}</p><h2 className="mt-1 text-lg font-semibold">{t('fretboardSnapshot')}</h2></div><button onClick={() => onNavigate('practice')} className="text-xs font-medium text-amber-300 hover:text-amber-200">{t('openLab')} <ArrowUpRight className="ml-1 inline" size={13}/></button></div>
-          <Fretboard frets={12}/>
+          <Fretboard frets={12} ariaLabel={language === 'id' ? 'Fretboard gitar interaktif, 12 fret' : 'Interactive guitar fretboard, 12 frets'}/>
           <div className="mt-3 flex flex-wrap gap-4 text-[11px] text-zinc-500"><span><i className="mr-1.5 inline-block h-2 w-2 rounded-full bg-amber-400"/>{t('rootNote')}</span><span><i className="mr-1.5 inline-block h-2 w-2 rounded-full bg-blue-400"/>{t('scaleTones')}</span><span> A minor pentatonic · {t('preview')}</span></div>
         </div>
         <div className="panel rounded-2xl p-5 sm:p-6">
