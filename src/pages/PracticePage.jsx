@@ -15,7 +15,7 @@ const modes = {
   'Mixolydian': [0, 2, 4, 5, 7, 9, 10],
 }
 
-export default function PracticePage() {
+export default function PracticePage({ onPracticeComplete }) {
   const { language, t } = useLanguage()
   const [mode, setMode] = useState('Minor pentatonic')
   const [root, setRoot] = useState('A')
@@ -101,11 +101,11 @@ export default function PracticePage() {
       </div>
     </section>
 
-    <NoteLocationChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop}/>
+    <NoteLocationChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop} onComplete={onPracticeComplete}/>
 
-    <ChordToneChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop}/>
+    <ChordToneChallenge frequency={frequency} level={level} status={status} onStartListening={start} onStopListening={stop} onComplete={onPracticeComplete}/>
 
-    <EarTrainingChallenge/>
+    <EarTrainingChallenge onComplete={onPracticeComplete}/>
 
     <section className="panel rounded-2xl p-5 sm:p-6">
       <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[.16em] text-amber-300"><Target size={14}/>{t('noteChallenge')}</div>
