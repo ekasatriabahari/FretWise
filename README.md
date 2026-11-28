@@ -62,7 +62,7 @@ src/
 - Uses the browser MediaDevices API to request audio input and enumerate available input devices after permission is granted.
 - USB guitar processors and audio interfaces can be selected when the operating system exposes them as audio input devices. A USB port alone does not guarantee audio-interface support.
 - Input capture disables browser echo cancellation, noise suppression, and automatic gain control where the browser/device honors those constraints.
-- The current tuner and practical assessment are early monophonic prototypes. The practical assessment scores five note-location and pitch-verification rounds in the current session; results are not yet saved. Polyphonic chords, effects-heavy signals, latency calibration, and chord-tone assessment is an early four-round prototype using synthesized chord tones; it does not yet detect full chords or evaluate free-form improvisation.
+- The current tuner and practical assessments are early monophonic prototypes. The note-location assessment scores five rounds in the current session; results are not yet saved. The chord-tone assessment is a four-round prototype using synthesized Dm7–G7 chord tones and single-note pitch verification. It does not yet detect full chords or evaluate free-form improvisation. Effects-heavy signals and latency calibration also need further work.
 - Use HTTPS in deployment (localhost is also treated as a secure context by browsers).
 
 ## Product principles
