@@ -21,7 +21,7 @@ export default function AssessmentQuiz({ onComplete }) {
   const question = questions[index]
   const answered = answers[question.id] !== undefined
   const result = scoreAssessment(questions, answers)
-  const insights = getAssessmentInsights(result.pillars)
+  const insights = getAssessmentInsights(result.pillars, language)
 
   const restart = () => {
     setIndex(0)
