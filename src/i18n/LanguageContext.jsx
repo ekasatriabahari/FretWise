@@ -5,7 +5,7 @@ const STORAGE_KEY = 'fretwise.language.v1'
 
 const messages = {
   en: {
-    language: 'Language', english: 'English', indonesian: 'Bahasa Indonesia',
+    language: 'Language', english: 'English', indonesian: 'Bahasa Indonesia', search: 'Search', notifications: 'Notifications', brandTagline: 'Play beyond the patterns',
     overview: 'Overview', assessment: 'Skill assessment', curriculum: 'My curriculum', practice: 'Fretboard lab', learn: 'Learn',
     workspace: 'Your workspace', findBreakthrough: 'Find your next breakthrough', focusedPractice: 'A little focused practice beats another hour of noodling.', checkSkills: 'Check your skills', prototype: 'Prototype · v0.2',
     home: 'Home', assess: 'Assess', plan: 'Plan',
@@ -49,7 +49,7 @@ const messages = {
     priorityBadge: 'Recommended next lesson', noAssessment: 'Take the skill assessment to personalize your next lessons.',
   },
   id: {
-    language: 'Bahasa', english: 'English', indonesian: 'Bahasa Indonesia',
+    language: 'Bahasa', english: 'English', indonesian: 'Bahasa Indonesia', search: 'Cari', notifications: 'Notifikasi', brandTagline: 'Bermain melampaui pola',
     overview: 'Ringkasan', assessment: 'Evaluasi kemampuan', curriculum: 'Kurikulum saya', practice: 'Peta fretboard', learn: 'Belajar',
     workspace: 'Ruang belajar', findBreakthrough: 'Temukan perkembangan berikutnya', focusedPractice: 'Latihan yang terarah lebih bermanfaat daripada bermain tanpa tujuan berjam-jam.', checkSkills: 'Evaluasi kemampuan', prototype: 'Prototipe · v0.2',
     home: 'Beranda', assess: 'Evaluasi', plan: 'Rencana',
