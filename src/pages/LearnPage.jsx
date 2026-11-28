@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ArrowRight, BookOpen, Check, Ear, Eye, Lightbulb, Music2, PencilRuler, Play, RotateCcw, Sparkles, Target } from 'lucide-react'
+import { ArrowRight, BookOpen, Check, Ear, Eye, Lightbulb, Music2, Play, RotateCcw, Sparkles, Target } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { chordToneLesson, lessonStages } from '../data/lessonData'
 
@@ -68,7 +68,7 @@ export default function LearnPage({ onNavigate }) {
             <div className="flex items-center justify-between"><span className="text-[10px] text-zinc-600">0{index + 1}</span>{done ? <Check size={14} className="text-emerald-400"/> : <Icon size={15} className={active ? 'text-amber-300' : 'text-zinc-500'}/>}</div>
             <div className={`mt-3 text-sm font-semibold ${active ? 'text-amber-200' : 'text-zinc-200'}`}>{stageLabels[item.id]}</div>
             <p className="mt-1 hidden text-[10px] leading-4 text-zinc-500 sm:block">{descriptions[item.id]}</p>
-            <div className="mt-2 text-[10px] text-zinc-600">{item.duration}</div>
+            <div className="mt-2 text-[10px] text-zinc-600">{item.duration.replace('min', language === 'id' ? 'mnt' : 'min')}</div>
           </button>
         })}
       </div>
