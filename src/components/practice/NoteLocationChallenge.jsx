@@ -4,7 +4,7 @@ import Fretboard from '../fretboard/Fretboard'
 import { NOTES, STANDARD_TUNING } from '../../utils/guitarTheory'
 import { useLanguage } from '../../i18n/LanguageContext'
 
-const OPEN_MIDI = { E: 40, A: 45, D: 50, G: 55, B: 59 }
+const OPEN_MIDI_BY_STRING = [64, 59, 55, 50, 45, 40]
 
 function makeTarget(previous) {
   let target
@@ -12,7 +12,7 @@ function makeTarget(previous) {
     const string = Math.floor(Math.random() * 6) + 1
     const fret = Math.floor(Math.random() * 13)
     const openNote = STANDARD_TUNING[6 - string]
-    const midi = OPEN_MIDI[openNote] + fret
+    const midi = OPEN_MIDI_BY_STRING[string - 1] + fret
     target = {
       string,
       fret,
