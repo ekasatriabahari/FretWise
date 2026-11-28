@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { CheckCircle2, CircleHelp, Mic, RotateCcw, Target, Volume2 } from 'lucide-react'
+import { CheckCircle2, CircleHelp, Mic, RotateCcw, Target } from 'lucide-react'
 import Fretboard from '../fretboard/Fretboard'
-import { NOTES, STANDARD_TUNING } from '../../utils/guitarTheory'
+import { NOTES } from '../../utils/guitarTheory'
 import { useLanguage } from '../../i18n/LanguageContext'
 
 const OPEN_MIDI_BY_STRING = [64, 59, 55, 50, 45, 40]
@@ -11,7 +11,6 @@ function makeTarget(previous) {
   do {
     const string = Math.floor(Math.random() * 6) + 1
     const fret = Math.floor(Math.random() * 13)
-    const openNote = STANDARD_TUNING[6 - string]
     const midi = OPEN_MIDI_BY_STRING[string - 1] + fret
     target = {
       string,
