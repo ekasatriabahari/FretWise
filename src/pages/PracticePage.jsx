@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { AudioLines, CircleHelp, Guitar, RotateCcw, Usb, Mic, RefreshCw, Square, Radio } from 'lucide-react'
+import { AudioLines, CircleHelp, Guitar, RotateCcw, Mic, RefreshCw, Square, Radio } from 'lucide-react'
 import Fretboard from '../components/fretboard/Fretboard'
 import { NOTES } from '../utils/guitarTheory'
 import { useLanguage } from '../i18n/LanguageContext'
